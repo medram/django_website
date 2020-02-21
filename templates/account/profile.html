@@ -1,0 +1,18 @@
+{% extends 'tpls/_account_base.html' %}
+{% load crispy_forms_tags %}
+{% block account_content %}
+<div class="card mt-5 mt-md-0">
+	<div class="card-header bg-info text-white">
+		<i class="far fa-user fa-fw"></i> Profile
+	</div>
+	<div class="card-body">
+		<form action="{% url 'account:profile' %}" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{% crispy user_form %}
+			{% crispy profile_form %}
+
+			<button type="submit" class="btn btn-info mt-3 float-right"><i class="fas fa-plus fa-fw"></i> Save</button>
+		</form>
+	</div>
+</div>
+{% endblock %}

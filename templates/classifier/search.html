@@ -1,0 +1,52 @@
+{% extends 'tpls/_base.html' %}
+{% load humanize %}
+
+{% block content %}
+
+{% include 'tpls/common/_search.html' %}
+<!-- cards -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			{% if posts %}
+				{% for post in posts %}
+					<div class="cardgrid">
+						<div class="cardgrid-header">
+							<div class="custom-card-img">
+								<img src="{{ post.main_image.url }}" alt="{{ post.title }}">
+							</div>
+						</div>
+						<div class="cardgrid-body">
+							<h5 class="card-title"><a href="/{{ post.city.slug }}/{{ post.category.slug }}/{{ post.pk }}/{{ post.title|slugify }}">{{ post.title }}</a></h5>
+							<!-- <p class="card-text"></p> -->
+							{% if post.publisher %}
+								<small class="text-muted"><i class="fas fa-user"></i> {{ post.publisher }}</small><br>
+							{% endif %}
+							{% if post.category %}
+								<small class="text-muted"><i class="fas fa-tag"></i> {{ post.category }}</small>
+							{% endif %}
+							{% if post.city %}
+								<small class="text-muted">, <i class="fas fa-map-marker-alt"></i> {{ post.city }}</small>
+							{% endif %}
+							<br>
+							<small class="text-muted"><i class="far fa-clock"></i> {{ post.created | naturalday }}</small><br>
+						</div>
+						<div class="cardgrid-footer">
+							{% if post.price %}
+								<b class="text-success">${{ post.price | intcomma }}</b>
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+			{% else %}
+				<div class="text-center">Nothing Found!</div>
+			{% endif %}
+			<div class="mt-4">
+				{% include 'tpls/common/_pagination.html' with items=posts %}
+			</div>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+</div>
+{% endblock %}
