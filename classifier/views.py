@@ -1,8 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.paginator import Paginator
-from classifier.models import Post
-from classifier import choices
+from .models import Post
+from . import choices, forms
+
 
 def home(req):
 	options = {
@@ -51,3 +54,23 @@ def show_post(req, city, category, post_id, title):
 		'images': post.get_images()
 	}
 	return render(req, 'classifier/show_post.html', options)
+
+
+@login_required
+def add_announcement(req):
+	if req.method == 'POST':
+		form = forms.AnnouncementCreationFrom(req.POST, req.FILES)
+		if form.is_valid():
+			form.save(user=req.user)
+			messages.success(req, 'Added Successfully.')
+			return redirect('classifier:add_announcement')
+		else:
+			form = forms.AnnouncementCreationFrom(req.POST, req.FILES)
+
+	else:
+		form = forms.AnnouncementCreationFrom()
+	
+	options = {
+		'form': form
+	}
+	return render(req, 'classifier/add_announcement.html', options)

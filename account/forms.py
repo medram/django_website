@@ -28,10 +28,10 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-	
+
 	class Meta:
 		model = Profile
-		fields = ('profile_image', 'phone')
+		fields = ('profile_image', 'phone', 'address')
 		widgets = {
 			'profile_image': forms.FileInput()
 		}
@@ -41,12 +41,3 @@ class ProfileUpdateForm(forms.ModelForm):
 		self.helper = FormHelper()
 		self.helper.use_custom_control = True
 		self.helper.form_tag = False
-
-
-# class PasswordResetForm(PasswordResetForm):
-	
-# 	def __init__(self, *args, **kwargs):
-# 		super().__init__(*args, **kwargs)
-# 		self.helper = FormHelper()
-# 		self.helper.use_custom_control = True
-# 		self.helper.form_tag = False

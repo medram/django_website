@@ -23,6 +23,7 @@ class Profile(models.Model):
 	profile_image = models.ImageField(upload_to=_user_profile_path, default='profiles/default.jpg', blank=True)
 	phone		= models.CharField(max_length=10, blank=True, null=True)
 	status 		= models.IntegerField(choices=Status.choices, default=Status.APPROVED)
+	address		= models.CharField(max_length=256, null=True, blank=True)
 	created 	= models.DateTimeField(auto_now_add=True, blank=True)
 	updated 	= models.DateTimeField(auto_now=True, blank=True)
 

@@ -91,7 +91,7 @@ class Post(models.Model):
 	def save(self, *args, **kwargs):
 		# delete the old images.
 		try:
-			post = Post.objects.filter(pk=self.pk).first()
+			post = Post.objects.get(pk=self.pk)
 			new_list = self.get_images()
 			old_list = post.get_images()
 			
@@ -100,7 +100,7 @@ class Post(models.Model):
 					print('>', old_im.path)
 					os.remove(old_im.path)
 
-		except IOError:
+		except (IOError, self.DoesNotExist):
 			pass
 
 		# save the Post

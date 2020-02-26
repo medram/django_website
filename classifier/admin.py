@@ -16,8 +16,10 @@ class PostAdmin(admin.ModelAdmin):
 	search_fields = ('id', 'title', 'price')
 
 	def view_publisher(self, obj):
-		return format_html(f"<a href=\"{ reverse('admin:account_profile_change', args=(obj.profile.pk,)) }\" >{obj.profile}</a>")
-		
+		if obj.profile:
+			return format_html(f"<a href=\"{ reverse('admin:account_profile_change', args=(obj.profile.pk,)) }\" >{obj.profile}</a>")
+		else:
+			return '-'	
 
 class CategoryAdmin(admin.ModelAdmin):
 	list_display = ('name', 'slug', 'parent_cat')

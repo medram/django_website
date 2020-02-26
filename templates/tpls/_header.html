@@ -23,7 +23,7 @@
                 Welcome {{ user.username|title }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#"><i class="fas fa-plus fa-fw"></i> Announcement</a>
+                  <a class="dropdown-item" href="{% url 'classifier:add_announcement' %}"><i class="fas fa-plus fa-fw"></i> Announcement</a>
                   <a class="dropdown-item" href="{% url 'account:profile' %}"><i class="far fa-user fa-fw"></i> Profile</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'account:logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>

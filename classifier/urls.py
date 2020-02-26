@@ -5,5 +5,6 @@ app_name = __package__
 urlpatterns = [
 	path('', views.home, name='home'),
 	path('search/', views.search, name='search'),
-	path('<slug:city>/<slug:category>/<int:post_id>/<str:title>', views.show_post)
+	path('<slug:city>/<slug:category>/<int:post_id>/<str:title>', views.show_post, name='search'),
+	path('announcement', views.add_announcement, name='add_announcement')
 ]
